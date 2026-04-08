@@ -28,8 +28,8 @@ def get_duration_stats(data):
         'average_seasons': int(np.ceil(data[data['Total_seasons']>0]['Total_seasons'].mean())) 
     }
 
-print(get_content_type_distribution(data),
-get_top_countries(data),
-get_yearly_trend(data),
-get_rating_distribution(data),
-get_duration_stats(data))
+# print(get_content_type_distribution(data),
+# get_top_countries(data),
+# get_yearly_trend(data),
+# get_rating_distribution(data),
+# get_duration_stats(data))
