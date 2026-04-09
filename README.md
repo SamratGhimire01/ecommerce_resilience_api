@@ -11,17 +11,25 @@
   <img src="https://img.shields.io/badge/FastAPI-Used-green?style=for-the-badge&logo=fastapi">
   <img src="https://img.shields.io/badge/Pandas-Data%20Analysis-red?style=for-the-badge&logo=pandas">
   <img src="https://img.shields.io/badge/Matplotlib-Visualization-yellow?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Render-Deployed-purple?style=for-the-badge&logo=render">
+  <img src="https://img.shields.io/badge/Status-Live%20✅-success?style=for-the-badge">
+</p>
+
+<p align="center">
+  <b>🌐 Live Demo:</b> 
+  <a href="https://netflix-data-api.onrender.com/docs">
+    https://netflix-data-api.onrender.com
+  </a>
 </p>
 
 ---
 
 ## 🚀 Overview
 
-**Netflix Data Analysis API** is a REST API that analyzes Netflix content data and provides:
+**Netflix Data Analysis API** is a live REST API that analyzes Netflix content data and provides:
 
 - 📊 **Visualizations** - Auto-generated charts saved as PNG
-- 📑 **PDF Reports** - Simple reports with charts and descriptions
+- 📑 **PDF Reports** - Simple reports with charts and descriptions  
 - 🔌 **JSON Endpoints** - Raw data for external use
 - 🧪 **Testing** - Basic pytest coverage
 
@@ -30,6 +38,8 @@ Built with **FastAPI**, this project uses:
 - Pandas for data loading and analysis
 - Matplotlib for chart generation
 - FPDF for PDF creation
+
+✅ **Now deployed and accessible worldwide on Render (Free Tier)**
 
 ---
 
@@ -60,21 +70,59 @@ Built with **FastAPI**, this project uses:
 
 ---
 
-## 📸 Demo
+## 🌐 Live Demo
 
-### 📊 Content Distribution Chart
-![Content Distribution](images/content_distribution.png)
+### 🔗 Base URL
+```
+https://netflix-data-api.onrender.com
+```
 
-### 📈 Yearly Trends Visualization
-![Yearly Trends](images/yearly_trend.png)
+### 🧪 Try These Endpoints Now
 
-### 🌍 Top Countries Analysis
-![Top Countries](images/top_countries.png)
+```bash
+# Home endpoint
+curl https://netflix-data-api.onrender.com/
 
+# Get JSON summary of content types
+curl https://netflixodata-api.onrender.com/summary
+
+# Download content distribution chart
+curl https://netflix-data-api.onrender.com/content_distribution -o chart.png
+
+# Download PDF report
+curl https://netflix-data-api.onrender.com/report_content_distribution -o report.pdf
+
+# Filter trends by year range
+curl "https://netflix-data-api.onrender.com/trends?from_year=2018&to_year=2021"
+
+# Get top 3 countries
+curl "https://netflix-data-api.onrender.com/countries?top=3"
+```
+
+### 📚 Interactive API Docs
+- **Swagger UI**: https://netflix-data-api.onrender.com/docs
+- **ReDoc**: https://netflix-data-api.onrender.com/redoc
+
+> ⏱️ *Note: Free tier instances spin down after 15 minutes of inactivity. First request may take ~30-60 seconds to respond.*
 
 ---
 
-## ⚙️ Installation
+## 📸 Sample Outputs
+
+### 📊 Content Distribution Chart
+![Content Distribution](https://netflix-data-api.onrender.com/content_distribution)
+
+### 📈 Yearly Trends
+![Yearly Trends](https://netflix-data-api.onrender.com/yearly_trend)
+
+### 🌍 Top Countries
+![Top Countries](https://netflix-data-api.onrender.com/top_countries)
+
+*(Images are generated on-demand — visit the URLs above to see live results)*
+
+---
+
+## ⚙️ Local Installation (Run It Yourself)
 
 ```bash
 # Clone the repository
@@ -96,51 +144,27 @@ pip install -r requirements.txt
 
 ### 📋 Requirements
 - Python 3.9+
-- FastAPI
-- Pandas
-- NumPy
-- Matplotlib
-- FPDF2
+- FastAPI, Uvicorn
+- Pandas, NumPy
+- Matplotlib, FPDF2
 - pytest
 
 ---
 
-## ▶️ Usage
-
-### 1️⃣ Start the Server
+## ▶️ Local Usage
 
 ```bash
-# Development mode with auto-reload
+# Start the server
 uvicorn main:app --reload
 
-# Basic run
-uvicorn main:app --host 0.0.0.0 --port 8000
-```
-
-### 2️⃣ Access API Documentation
-
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
-
-### 3️⃣ Make API Calls
-
-```bash
-# Get content distribution visualization
-curl http://localhost:8000/content_distribution -o content_dist.png
-
-# Get JSON summary
-curl http://localhost:8000/summary
-
-# Download PDF report
-curl http://localhost:8000/report_content_distribution -o report.pdf
-
-# Filter trends by year range
-curl "http://localhost:8000/trends?from_year=2015&to_year=2021"
+# Access locally at:
+# http://localhost:8000
+# http://localhost:8000/docs
 ```
 
 ---
 
-## 🧠 API Endpoints
+## 🧠 API Endpoints Reference
 
 ### 📊 Visualization Endpoints (Images)
 
@@ -174,11 +198,11 @@ curl "http://localhost:8000/trends?from_year=2015&to_year=2021"
 
 ---
 
-## 💡 Examples
+## 💡 Quick Examples
 
-### Get Top 5 Countries
+### Get Top 5 Countries (Live)
 ```bash
-curl "http://localhost:8000/countries?top=5"
+curl "https://netflix-data-api.onrender.com/countries?top=5"
 ```
 **Response:**
 ```json
@@ -191,26 +215,9 @@ curl "http://localhost:8000/countries?top=5"
 }
 ```
 
-### Filter Trends by Year Range
+### Filter Trends (Live)
 ```bash
-curl "http://localhost:8000/trends?from_year=2010&to_year=2020"
-```
-**Response:**
-```json
-{
-  "2010": 145,
-  "2011": 178,
-  "2012": 203,
-  "2013": 267,
-  ...
-  "2020": 682
-}
-```
-
-### Download a Chart
-```bash
-curl http://localhost:8000/rating_distribution -o ratings.png
-# Or open in browser: http://localhost:8000/rating_distribution
+curl "https://netflix-data-api.onrender.com/trends?from_year=2015&to_year=2020"
 ```
 
 ---
@@ -231,7 +238,7 @@ The API expects cleaned Netflix data at `data/processed/netflix_cleaned.csv` wit
 ## 🧪 Testing
 
 ```bash
-# Run all tests
+# Run all tests locally
 pytest tests/ -v
 
 # Run specific test files
@@ -253,6 +260,7 @@ pytest tests/test_api.py -v
 netflix-data-analysis/
 ├── main.py                    # FastAPI app entry point
 ├── requirements.txt           # Python dependencies
+├── render.yaml                # Render deployment config
 ├── README.md                  # This file
 │
 ├── src/
@@ -297,6 +305,7 @@ netflix-data-analysis/
 | **FPDF2** | Create simple PDF reports |
 | **pytest** | Run unit and integration tests |
 | **Uvicorn** | Run the FastAPI server |
+| **Render** | Cloud deployment platform |
 
 ---
 
@@ -316,7 +325,7 @@ netflix-data-analysis/
 - ✅ Generating charts with Matplotlib
 - ✅ Creating PDFs programmatically
 - ✅ Writing basic pytest tests
-- ✅ Handling file I/O and error cases
+- ✅ Deploying to cloud with Render (free tier)
 
 ---
 
@@ -335,7 +344,14 @@ netflix-data-analysis/
 
 **Samrat Ghimire**  
 🔗 GitHub: https://github.com/SamratGhimire01  
-🔗 LinkedIn: https://www.linkedin.com/in/samratghimire01/
+🔗 LinkedIn: https://www.linkedin.com/in/samratghimire01/  
+🌐 Live API: https://netflix-data-api.onrender.com/docs
+
+---
+
+## 📄 License
+
+This project is open-source and available for educational and personal use.
 
 ---
 
@@ -344,6 +360,5 @@ netflix-data-analysis/
 </p>
 
 <p align="center">
-  <i>Built with Python & FastAPI</i>
+  <i>🚀 Live on Render • Built with Python & FastAPI</i>
 </p>
-
