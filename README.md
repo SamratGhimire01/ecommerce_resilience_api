@@ -1,0 +1,349 @@
+
+# 🎬 Netflix Data Analysis API
+
+<p align="center">
+  <b>A FastAPI-based analytics tool for Netflix content insights</b><br>
+  Visualizations • PDF Reports • REST API • Data Analysis
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.9+-blue?style=for-the-badge&logo=python">
+  <img src="https://img.shields.io/badge/FastAPI-Used-green?style=for-the-badge&logo=fastapi">
+  <img src="https://img.shields.io/badge/Pandas-Data%20Analysis-red?style=for-the-badge&logo=pandas">
+  <img src="https://img.shields.io/badge/Matplotlib-Visualization-yellow?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Status-Active-success?style=for-the-badge">
+</p>
+
+---
+
+## 🚀 Overview
+
+**Netflix Data Analysis API** is a REST API that analyzes Netflix content data and provides:
+
+- 📊 **Visualizations** - Auto-generated charts saved as PNG
+- 📑 **PDF Reports** - Simple reports with charts and descriptions
+- 🔌 **JSON Endpoints** - Raw data for external use
+- 🧪 **Testing** - Basic pytest coverage
+
+Built with **FastAPI**, this project uses:
+- Standard function-based route handlers
+- Pandas for data loading and analysis
+- Matplotlib for chart generation
+- FPDF for PDF creation
+
+---
+
+## ✨ Features
+
+### 🔍 Data Analysis
+- ✅ Content Type Distribution (Movies vs TV Shows)
+- ✅ Top 10 Producing Countries
+- ✅ Yearly Release Trends (1942-2021)
+- ✅ Rating Distribution Analysis
+- ✅ Duration & Season Statistics
+
+### 📈 Visualization Engine
+- ✅ Matplotlib charts saved to `./images/`
+- ✅ 300 DPI PNG exports
+- ✅ On-demand generation if file missing
+
+### 📄 PDF Report Generator
+- ✅ Simple PDFs with embedded chart image
+- ✅ Descriptive text below each chart
+- ✅ Output files: `*_Report.pdf`
+
+### 🔌 API Endpoints
+- ✅ Visualization endpoints → return PNG images
+- ✅ Report endpoints → return PDF files
+- ✅ Summary endpoints → return JSON data
+- ✅ Basic query parameter support (`top`, `from_year`, `to_year`)
+
+---
+
+## 📸 Demo
+
+### 📊 Content Distribution Chart
+![Content Distribution](images/content_distribution.png)
+
+### 📈 Yearly Trends Visualization
+![Yearly Trends](images/yearly_trend.png)
+
+### 🌍 Top Countries Analysis
+![Top Countries](images/top_countries.png)
+
+
+---
+
+## ⚙️ Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/SamratGhimire01/netflix-data-analysis.git
+cd netflix-data-analysis
+
+# Create virtual environment
+python3 -m venv venv
+
+# Activate environment
+# Linux/macOS:
+source venv/bin/activate
+# Windows:
+venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### 📋 Requirements
+- Python 3.9+
+- FastAPI
+- Pandas
+- NumPy
+- Matplotlib
+- FPDF2
+- pytest
+
+---
+
+## ▶️ Usage
+
+### 1️⃣ Start the Server
+
+```bash
+# Development mode with auto-reload
+uvicorn main:app --reload
+
+# Basic run
+uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
+### 2️⃣ Access API Documentation
+
+- **Swagger UI**: http://localhost:8000/docs
+- **ReDoc**: http://localhost:8000/redoc
+
+### 3️⃣ Make API Calls
+
+```bash
+# Get content distribution visualization
+curl http://localhost:8000/content_distribution -o content_dist.png
+
+# Get JSON summary
+curl http://localhost:8000/summary
+
+# Download PDF report
+curl http://localhost:8000/report_content_distribution -o report.pdf
+
+# Filter trends by year range
+curl "http://localhost:8000/trends?from_year=2015&to_year=2021"
+```
+
+---
+
+## 🧠 API Endpoints
+
+### 📊 Visualization Endpoints (Images)
+
+| Endpoint | Method | Description | Returns |
+|----------|--------|-------------|---------|
+| `/content_distribution` | GET | Movies vs TV Shows chart | PNG Image |
+| `/yearly_trend` | GET | Release trends over time | PNG Image |
+| `/top_countries` | GET | Top 10 producing countries | PNG Image |
+| `/rating_distribution` | GET | Content rating breakdown | PNG Image |
+| `/average-duration` | GET | Duration & seasons stats | PNG Image |
+
+### 📄 Report Endpoints (PDFs)
+
+| Endpoint | Method | Description | Returns |
+|----------|--------|-------------|---------|
+| `/report_content_distribution` | GET | Content distribution report | PDF |
+| `/report_yearly_trend` | GET | Yearly trends analysis | PDF |
+| `/report_top_countries` | GET | Country production report | PDF |
+| `/report_rating_distribution` | GET | Rating demographics report | PDF |
+| `/duration-report` | GET | Duration analysis report | PDF |
+
+### 📈 Summary Endpoints (JSON)
+
+| Endpoint | Method | Description | Parameters |
+|----------|--------|-------------|------------|
+| `/summary` | GET | Total movies & shows count | None |
+| `/countries` | GET | Top producing countries | `top` (int, default: 10) |
+| `/trends` | GET | Yearly release trends | `from_year`, `to_year` |
+| `/ratings` | GET | Rating distribution | None |
+| `/duration` | GET | Average duration stats | None |
+
+---
+
+## 💡 Examples
+
+### Get Top 5 Countries
+```bash
+curl "http://localhost:8000/countries?top=5"
+```
+**Response:**
+```json
+{
+  "United States": 2850,
+  "India": 950,
+  "United Kingdom": 720,
+  "Japan": 450,
+  "Canada": 380
+}
+```
+
+### Filter Trends by Year Range
+```bash
+curl "http://localhost:8000/trends?from_year=2010&to_year=2020"
+```
+**Response:**
+```json
+{
+  "2010": 145,
+  "2011": 178,
+  "2012": 203,
+  "2013": 267,
+  ...
+  "2020": 682
+}
+```
+
+### Download a Chart
+```bash
+curl http://localhost:8000/rating_distribution -o ratings.png
+# Or open in browser: http://localhost:8000/rating_distribution
+```
+
+---
+
+## 📊 Data Structure
+
+### Expected CSV Format
+The API expects cleaned Netflix data at `data/processed/netflix_cleaned.csv` with columns:
+- `type` - "Movie" or "TV Show"
+- `country` - Production country
+- `release_year` - Year of release
+- `rating` - Content rating (TV-MA, PG-13, etc.)
+- `Total_minutes` - Duration in minutes (for movies)
+- `Total_seasons` - Number of seasons (for TV shows)
+
+---
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+pytest tests/ -v
+
+# Run specific test files
+pytest tests/test_analysis.py -v
+pytest tests/test_api.py -v
+```
+
+### Test Coverage
+- ✅ Data loading and error handling
+- ✅ Analysis function outputs
+- ✅ API endpoint status codes
+- ✅ Query parameter validation
+
+---
+
+## 📁 Project Structure
+
+```
+netflix-data-analysis/
+├── main.py                    # FastAPI app entry point
+├── requirements.txt           # Python dependencies
+├── README.md                  # This file
+│
+├── src/
+│   ├── __init__.py
+│   ├── loader.py             # Load CSV with pandas
+│   ├── analysis.py           # Analysis functions
+│   ├── viz.py                # Matplotlib plotting
+│   ├── reporter.py           # PDF generation with FPDF
+│   │
+│   └── api/
+│       ├── __init__.py
+│       ├── endpoints.py      # Image & PDF routes
+│       └── summary.py        # JSON data routes
+│
+├── tests/
+│   ├── __init__.py
+│   ├── test_analysis.py      # Test analysis functions
+│   └── test_api.py           # Test API endpoints
+│
+├── data/
+│   └── processed/
+│       └── netflix_cleaned.csv   # Input dataset
+│
+└── images/                    # Generated charts
+    ├── content_distribution.png
+    ├── yearly_trend.png
+    ├── top_countries.png
+    ├── rating_distribution.png
+    └── average_duration.png
+```
+
+---
+
+## 🎯 Key Technologies
+
+| Technology | Purpose |
+|------------|---------|
+| **FastAPI** | Web framework for API routes |
+| **Pandas** | Load and analyze CSV data |
+| **NumPy** | Numerical calculations (mean, ceil) |
+| **Matplotlib** | Generate bar/line charts |
+| **FPDF2** | Create simple PDF reports |
+| **pytest** | Run unit and integration tests |
+| **Uvicorn** | Run the FastAPI server |
+
+---
+
+## 🔐 Error Handling
+
+- ✅ Invalid year ranges → returns error JSON
+- ✅ Missing image/PDF files → generates on first request
+- ✅ Data loading errors → raises descriptive exception
+- ✅ Parameter validation → checks bounds for `top`, `from_year`, `to_year`
+
+---
+
+## 🎓 What This Project Shows
+
+- ✅ Building a REST API with FastAPI
+- ✅ Organizing code into modules (loader, analysis, viz, reporter)
+- ✅ Generating charts with Matplotlib
+- ✅ Creating PDFs programmatically
+- ✅ Writing basic pytest tests
+- ✅ Handling file I/O and error cases
+
+---
+
+## 🔮 Possible Future Enhancements
+
+- [ ] Add input validation with Pydantic models
+- [ ] Use async/await for I/O operations
+- [ ] Add database integration
+- [ ] Create a frontend dashboard
+- [ ] Add authentication
+- [ ] Containerize with Docker
+
+---
+
+## 👨‍💻 Author
+
+**Samrat Ghimire**  
+🔗 GitHub: https://github.com/SamratGhimire01  
+🔗 LinkedIn: https://www.linkedin.com/in/samratghimire01/
+
+---
+
+<p align="center">
+  <b>⭐ If you find this project useful, please give it a star! ⭐</b>
+</p>
+
+<p align="center">
+  <i>Built with Python & FastAPI</i>
+</p>
+
